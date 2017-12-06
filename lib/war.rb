@@ -11,13 +11,13 @@ class War
 		return @resultado
 	end
 
-	def TurnoA
-		@CartaA = 5
+	def TurnoA(valor)
+		@CartaA = valor
 		@resultado = "#{ @CartaA }"
 	end
 
-	def TurnoB
-		@CartaB = 5
+	def TurnoB(valor)
+		@CartaB = valor
 		@resultado = "#{ @CartaB }"
 	end
 		
