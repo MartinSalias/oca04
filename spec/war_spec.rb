@@ -54,4 +54,16 @@ describe "War" do
 		juego.Resultado.should == "Ganador A"
 	end
 
+	it "Mezclar" do
+		juego = War.new
+		juego.Mezclar
+		juego.Resultado.should == "Mezclado"
+	end
+
+	it "Repartir" do
+		juego = War.new
+		juego.Mezclar
+		juego.Repartir
+		juego.Resultado.should == "Ok"
+	end		
 end
