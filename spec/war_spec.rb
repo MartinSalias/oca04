@@ -3,33 +3,41 @@ require "./lib/war.rb"
 describe "War" do
 	it "Inicio de juego" do
 		juego= War.new
-		juego.Resultado.should == "Comienza la partida"
+		juego.Mezclar
+		juego.Repartir
+		juego.Resultado.should == "Ok"
 	end
 
 	it "Turno A" do
 		juego= War.new
-		juego.TurnoA(6)
-		juego.Resultado.should == "6"
+		juego.Mezclar
+		juego.Repartir
+
+		juego.TurnoA "6R"
+		juego.Resultado.should == "6R"
 	end
 
 	it "Turno B" do
 		juego= War.new
-		juego.TurnoB(7)
+		juego.Mezclar
+		juego.Repartir
+
+		juego.TurnoB 7
 		juego.Resultado.should == "7"
 	end
 
 	it "Comparar Gana A" do
 		juego= War.new
-		juego.TurnoA(8)
-		juego.TurnoB(7)
+		juego.TurnoA 7
+		juego.TurnoB 3
 		juego.Comparar
 		juego.Resultado.should == "Ganador A"
 	end
 
 	it "Comparar Gana B" do
 		juego= War.new
-		juego.TurnoA(7)
-		juego.TurnoB(9)
+		juego.TurnoA 2
+		juego.TurnoB 8
 		juego.Comparar
 		juego.Resultado.should == "Ganador B"
 
@@ -37,19 +45,19 @@ describe "War" do
 
 	it "Comparar Empate" do
 		juego= War.new
-		juego.TurnoA(7)
-		juego.TurnoB(7)
+		juego.TurnoA 4
+		juego.TurnoB 4
 		juego.Comparar
 		juego.Resultado.should == "Empate"
 	end
 
 	it "Guerra" do
 		juego= War.new
-		juego.TurnoA(7)
-		juego.TurnoB(7)
+		juego.TurnoA 5
+		juego.TurnoB 5
 		juego.Comparar
-		juego.TurnoA(8)
-		juego.TurnoB(7)
+		juego.TurnoA 7
+		juego.TurnoB 6
 		juego.Comparar
 		juego.Resultado.should == "Ganador A"
 	end

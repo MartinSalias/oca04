@@ -1,5 +1,5 @@
 class War
-	def initialize
+	def Initialize
 	 	@resultado="Comienza la partida"
 		@Cartas  = ["1R","2R","3R","4R","5R","6R","7R","8R","9R","10R","1N","2N","3N","4N","5N","6N","7N","8N","9N","10N"]
 		@CartasMezcladas = []
@@ -15,53 +15,82 @@ class War
 		return @resultado
 	end
 
-	def TurnoA(valor)
-		@CartaA = valor
-		@resultado = "#{ @CartaA }"
+	def TurnoA valor=0
+		if valor == 0
+			@CartaA = @CartasA[0]
+			@resultado = "#{ @CartaA }"
+			@CartasA.each_with_index {|carta,i| @CartasA[i] = @CartasA[i+1]}
+		else
+			@CartaA = valor.to_s
+			@resultado = @CartaA
+		end
 	end
 
-	def TurnoB(valor)
-		@CartaB = valor
-		@resultado = "#{ @CartaB }"
+	def TurnoB valor = 0
+		if valor == 0
+			@CartaB = @CartasA[0]
+			@resultado = "#{ @CartaB }"
+			@CartasB.each_with_index {|carta,i| @CartasB[i] = @CartasB[i+1]}
+		else
+			@CartaB = valor.to_s
+			@resultado = @CartaB
+		end
 	end
 		
 	def Comparar
-		if @CartaA > @CartaB
+		if @CartaA == @CartaB
+			@resultado = "Empate"
+		elsif @CartaA > @CartaB
 			@resultado = "Ganador A"
 		else
-			if @CartaA == @CartaB
+			@resultado = "Ganador B"
+		end
+
+		return
+
+		if @CartaA[0] > @CartaB[0]
+			@resultado = "Ganador A"
+			@CartasA.push @CartaA
+			@CartasA.push @CartaB
+		else
+			if @CartaA[0] == @CartaB[0]
 				@resultado = "Empate"
 			else
 				@resultado = "Ganador B"
+				@CartasB.push @CartaA
+				@CartasB.push @CartaB
 			end
 		end
 	end
 
 	def Mezclar
-		@CartasMezcladas = ["1R","2N","3R","4N","5R","6N","7R","8N","9R","10N","1N","2R","3N","4R","5N","6R","7N","8R","9R","10N"]
+		@CartasMezcladas = ["1R","2N","3R","4N","5R","6N","7R","8N","9R","1N","2R","3N","4R","5N","6R","7N","8R","9R"]
 		@resultado = "Mezclado"
 	end
 
 	def Repartir
-		@indA = 0
-		@indB = 0
+		indA = 0
+		indB = 0
 
-		@CartasMezcladas.each_with_index {|carta,i| DarCarta(carta, i)}
+		@CartasMezcladas.each_with_index do |carta,i| 
+			DarCarta(carta, i)
+
+			if i % 2 == 0
+				@CartasA[indA] = carta
+				indA += 1
+			else
+				@CartasB[indB] = carta
+				indB += 1
+			end 
+		end
+
 		@resultado = "Ok"
 
 	end
 
 	def DarCarta(val, pos)
-		if pos % 2 == 0
-			@indA += 1
-			@CartasA[@indA - 1] = val
-		else
-			@indB += 1
-			@CartasB[@indB - 1] = val
-		end 
 	end
 
 end
-
 
 
