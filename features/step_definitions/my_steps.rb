@@ -3,22 +3,21 @@ Given(/^voy al sitio$/) do
 end
 
 Then(/^veo "(.*?)"$/) do |arg1|
-  "War Web" 
+  last_response.body.should =~ /#{arg1}/m
 end
 
-When(/^turno jugador "(.*?)"$/) do |arg1|
-  click_button("jugador " + arg1)
+
+When(/^turno jugador "(.*?)" y saca un (\d+)$/) do |jugador, carta|
+
+   if jugador == "A"
+    @@cartas[0] = carta
+   else
+    @@cartas[1] = carta
+   end
+
+  click_button("jugador " + jugador)
 end
 
-Then(/^veo carta$/) do
-  "carta"
-end
 
-When(/^evalúo cartas$/) do
- "Comparar"
-end
 
-Then(/^doy ganador$/) do
-  "Ganador A"
-end
 
